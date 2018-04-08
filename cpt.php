@@ -9,6 +9,10 @@
  * License URI: https://gnu.org/licenses/gpl-2.0.html
  */
 
+
+/**
+ * A continuación se registra el cpt
+ */
 function crear_post_type_recetas() {
     
 
@@ -103,4 +107,45 @@ function crear_post_type_eventos() {
  */
 
  add_action('init','crear_post_type_eventos');
+
+
+/**
+ * A continuación se registra la taxonomía
+ */
+
+ function taxonomia_tipo_receta() {
+    $labels = array (
+        'name' => _x('Tipo de comida', 'taxonomy general name'),
+        'singular_name' => _x('Tipo de comida', 'taxonomy singular name'),
+        'search_items' => __('Buscar tipo de comida'),
+        'all_items' => __('Todos los tipos de comida'),
+        'parent_item' => __('Tipo de comida padre'),
+        'parent_item_colon' => __('Tipo de comida Padre:'),
+        'edit_item' => __('Editar tipo de comida'),
+        'update_item' => __('Editar tipo de comida'),
+        'add_new_item' => __('Agregar nuevo tipo de comida'),
+        'new_item_name' => __('Nuevo tipo de comida'),
+        'menu_name' => __('Tipo de comida')
+    );
+
+    $args = array(
+        'hierarchical' => true,
+        'labels' => $labels,
+        'show_ui' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'tipo-comida')
+    );
+
+    // nombre de taxonomia, post type al que se aplica y argumentos
+    register_taxonomy('tipo-comida', array('recetas'), $args);
+ }
+
+/**
+ * añadimos la acción para que inicie en wp la taxonomia
+ */
+
+add_action('init','taxonomia_tipo_receta');
+
 ?>
+
